@@ -7,21 +7,22 @@ type Metadata = {
 };
 
 export async function enterCreditCard(page: Page) {
+    const dialog = page.locator('.modal').filter({
+        hasText: 'add payment method'
+    });
+    await dialog.waitFor({
+        state: 'visible'
+    });
     await page.getByPlaceholder('cardholder').fill('Test User');
     const stripe = page.frameLocator('[title="Secure payment input frame"]');
     await stripe.locator('id=Field-numberInput').fill('4242424242424242');
     await stripe.locator('id=Field-expiryInput').fill('1250');
     await stripe.locator('id=Field-cvcInput').fill('123');
     await stripe.locator('id=Field-countryInput').selectOption('DE');
-    await page.getByRole('button', { name: 'Next' }).click();
-}
-
-export async function enterAddress(page: Page) {
-    await page.locator('id=country').selectOption('US');
-    await page.locator('id=address').fill('123 Test St');
-    await page.locator('id=city').fill('Test City');
-    await page.locator('id=state').fill('Test State');
-    await page.getByRole('button', { name: 'Next' }).click();
+    await page.getByRole('button', { name: 'Add', exact: true }).click();
+    await dialog.waitFor({
+        state: 'hidden'
+    });
 }
 
 export async function createProProject(page: Page): Promise<Metadata> {
@@ -31,12 +32,11 @@ export async function createProProject(page: Page): Promise<Metadata> {
         await page.locator('id=name').fill('test org');
         await page.locator('id=plan').selectOption('tier-1');
         await page.getByRole('button', { name: 'get started' }).click();
+        await page.waitForURL('/console/create-organization**');
+        await page.getByRole('button', { name: 'add' }).first().click();
         await enterCreditCard(page);
-        await enterAddress(page);
         // skip members
-        await page.getByRole('button', { name: 'next' }).click();
-        // start pro trial
-        await page.getByRole('button', { name: 'create' }).click();
+        await page.getByRole('button', { name: 'create organization' }).click();
         await page.waitForURL('/console/organization-**');
 
         return getOrganizationIdFromUrl(page.url());

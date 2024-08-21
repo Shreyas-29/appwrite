@@ -20,11 +20,9 @@
     import { slide } from 'svelte/transition';
     import { sdk } from '$lib/stores/sdk';
     import { isCloud } from '$lib/system';
-    import { wizard } from '$lib/stores/wizard';
-    import CreateOrganizationCloud from '$routes/console/createOrganizationCloud.svelte';
     import { Feedback } from '$lib/components/feedback';
-    import ChangeOrganizationTierCloud from '$routes/console/changeOrganizationTierCloud.svelte';
     import { BillingPlan, Dependencies } from '$lib/constants';
+    import { upgradeURL } from '$lib/stores/billing';
 
     let showDropdown = false;
     let showSupport = false;
@@ -57,7 +55,7 @@
     function createOrg() {
         showDropdown = false;
         if (isCloud) {
-            wizard.start(CreateOrganizationCloud);
+            goto(`${base}/console/create-organization`);
         } else newOrgModal.set(true);
     }
 
@@ -92,8 +90,8 @@
     </a>
     {#if isCloud}
         <div
-            class="tag eyebrow-heading-3"
-            style="--p-tag-height: 1.785rem; --p-tag-content-height: 1.15rem; padding-block: 0.25rem;">
+            class="tag eyebrow-heading-3 u-padding-block-4"
+            style="--p-tag-height: 1.785rem; --p-tag-content-height: 1.2rem;">
             <span class="text u-x-small" style="font-weight: 500">Beta</span>
         </div>
     {/if}
@@ -105,11 +103,11 @@
 
 <div class="main-header-end">
     <nav class="u-flex is-only-desktop u-cross-center">
-        {#if isCloud && $organization?.billingPlan === BillingPlan.STARTER && !$page.url.pathname.startsWith('/console/account')}
+        {#if isCloud && $organization?.billingPlan === BillingPlan.FREE && !$page.url.pathname.startsWith('/console/account')}
             <Button
                 disabled={$organization?.markedForDeletion}
+                href={$upgradeURL}
                 on:click={() => {
-                    wizard.start(ChangeOrganizationTierCloud);
                     trackEvent('click_organization_upgrade', {
                         from: 'button',
                         source: 'top_nav'
@@ -126,6 +124,11 @@
         {/if}
         <DropList show={$feedback.show} scrollable on:blur={toggleFeedback}>
             <button class="button is-small is-text" on:click={toggleFeedback}>
+                {#if $feedback.notification}
+                    <span
+                        class="notification u-position-absolute u-inset-block-start-8 u-inset-inline-end-8"
+                    ></span>
+                {/if}
                 <span class="text">Feedback</span>
             </button>
             <svelte:fragment slot="other">
@@ -181,7 +184,11 @@
                         transition:slideFade|global={{ duration: 150 }}>
                         {#if $organizationList?.total}
                             <section class="drop-section u-overflow-y-auto u-max-height-200">
-                                <ul class="drop-list">
+                                <ul
+                                    class="drop-list"
+                                    data-sveltekit-preload-data={$page.params.organization
+                                        ? false
+                                        : 'hover'}>
                                     {#each $organizationList.teams as org}
                                         <DropListLink
                                             href={`${base}/console/organization-${org.$id}`}

@@ -65,7 +65,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -74,6 +74,244 @@ export const marketplace: MarketplaceTemplate[] = [
                 placeholder: 'd1efb...aec35',
                 required: false,
                 type: 'password'
+            }
+        ]
+    },
+    {
+        icon: 'icon-upstash',
+        id: 'query-upstash-vector',
+        name: 'Query Upstash Vector',
+        tagline: 'Vector database that stores text embeddings and context retrieval for LLMs',
+        permissions: ['any'],
+        events: [],
+        cron: '',
+        timeout: 15,
+        usecases: ['Databases'],
+        runtimes: [
+            ...getRuntimes(
+                TemplateRuntimes.NODE,
+                'npm install',
+                'src/main.js',
+                'node/query-upstash-vector'
+            )
+        ],
+        instructions: `For documentation and instructions check out <a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/appwrite/templates/tree/main/node/query-upstash-vector">file</a>.`,
+        vcsProvider: 'github',
+        providerRepositoryId: 'templates',
+        providerOwner: 'appwrite',
+        providerBranch: '0.1.*',
+        variables: [
+            {
+                name: 'UPSTASH_URL',
+                description: `The endpoint to connect to your Upstash Vector database. <a class="u-bold" target="_blank" href="https://upstash.com/docs/vector/overall/getstarted">Learn more</a>.`,
+                value: '',
+                placeholder: 'https://resolved-mallard-84564-eu1-vector.upstash.io',
+                required: true,
+                type: 'text'
+            },
+            {
+                name: 'UPSTASH_TOKEN',
+                description: `Authentication token to access your Upstash Vector database. <a class="u-bold" target="_blank" href="https://upstash.com/docs/vector/overall/getstarted">Learn more</a>.`,
+                value: '',
+                placeholder:
+                    'oe4wNTbwHVLcDNa6oceZfhBEABsCNYh43ii6Xdq4bKBH7mq7qJkUmc4cs3ABbYyuVKWZTxVQjiNjYgydn2dkhABNes4NAuDpj7qxUAmZYqGJT78',
+                required: true,
+                type: 'password'
+            }
+        ]
+    },
+    {
+        icon: 'icon-redis',
+        id: 'query-redis-labs',
+        name: 'Query Redis Labs',
+        tagline: 'Key-value database with advanced caching capabilities.',
+        permissions: ['any'],
+        events: [],
+        cron: '',
+        timeout: 15,
+        usecases: ['Databases'],
+        runtimes: [
+            ...getRuntimes(
+                TemplateRuntimes.NODE,
+                'npm install',
+                'src/main.js',
+                'node/query-redis-labs'
+            )
+        ],
+        instructions: `For documentation and instructions check out <a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/appwrite/templates/tree/main/node/query-redis-labs">file</a>.`,
+        vcsProvider: 'github',
+        providerRepositoryId: 'templates',
+        providerOwner: 'appwrite',
+        providerBranch: '0.1.*',
+        variables: [
+            {
+                name: 'REDIS_HOST',
+                description: `The endpoint to connect to your Redis database. <a class="u-bold" target="_blank" href="https://redis.io/docs/latest/operate/rc/rc-quickstart/">Learn more</a>.`,
+                value: '',
+                placeholder: 'redis-13258.c35.eu-central-1-1.ec2.redns.redis-cloud.com',
+                required: true,
+                type: 'text'
+            },
+            {
+                name: 'REDIS_PASSWORD',
+                description: `Authentication password to access your Redis database. <a class="u-bold" target="_blank" href="https://redis.io/docs/latest/operate/rc/rc-quickstart/">Learn more</a>.`,
+                value: '',
+                placeholder: 'efNNehiACfcZiwsTAjcK6xiwPyu6Dpdq',
+                required: true,
+                type: 'password'
+            }
+        ]
+    },
+    {
+        icon: 'icon-neo4j',
+        id: 'query-neo4j-auradb',
+        name: 'Query Neo4j AuraDB',
+        tagline: 'Graph database with focus on relations between data.',
+        permissions: ['any'],
+        events: [],
+        cron: '',
+        timeout: 15,
+        usecases: ['Databases'],
+        runtimes: [
+            ...getRuntimes(
+                TemplateRuntimes.NODE,
+                'npm install',
+                'src/main.js',
+                'node/query-neo4j-auradb'
+            )
+        ],
+        instructions: `For documentation and instructions check out <a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/appwrite/templates/tree/main/node/query-neo4j-auradb">file</a>.`,
+        vcsProvider: 'github',
+        providerRepositoryId: 'templates',
+        providerOwner: 'appwrite',
+        providerBranch: '0.1.*',
+        variables: [
+            {
+                name: 'NEO4J_URI',
+                description: `The endpoint to connect to your Neo4j database. <a class="u-bold" target="_blank" href="https://neo4j.com/docs/aura/auradb/getting-started/connect-database/">Learn more</a>.`,
+                value: '',
+                placeholder: 'neo4j+s://4tg4mddo.databases.neo4j.io',
+                required: true,
+                type: 'text'
+            },
+            {
+                name: 'NEO4J_USER',
+                description: `Authentication user to access your Neo4j database. <a class="u-bold" target="_blank" href="https://neo4j.com/docs/aura/auradb/getting-started/connect-database/">Learn more</a>.`,
+                value: '',
+                placeholder: 'neo4j',
+                required: true,
+                type: 'text'
+            },
+            {
+                name: 'NEO4J_PASSWORD',
+                description: `Authentication password to access your Neo4j database. <a class="u-bold" target="_blank" href="https://neo4j.com/docs/aura/auradb/getting-started/connect-database/">Learn more</a>.`,
+                value: '',
+                placeholder: 'mCUc4PbVUQN-_NkTLJLisb6ccnwzQKKhrkF77YMctzx',
+                required: true,
+                type: 'password'
+            }
+        ]
+    },
+    {
+        icon: 'icon-mongodb',
+        id: 'query-mongo-atlas',
+        name: 'Query MongoDB Atlas',
+        tagline:
+            'Realtime NoSQL document database with geospecial, graph, search, and vector suport.',
+        permissions: ['any'],
+        events: [],
+        cron: '',
+        timeout: 15,
+        usecases: ['Databases'],
+        runtimes: [
+            ...getRuntimes(
+                TemplateRuntimes.NODE,
+                'npm install',
+                'src/main.js',
+                'node/query-mongo-atlas'
+            )
+        ],
+        instructions: `For documentation and instructions check out <a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/appwrite/templates/tree/main/node/query-mongo-atlas">file</a>.`,
+        vcsProvider: 'github',
+        providerRepositoryId: 'templates',
+        providerOwner: 'appwrite',
+        providerBranch: '0.1.*',
+        variables: [
+            {
+                name: 'MONGO_URI',
+                description: `The endpoint to connect to your Mongo database. <a class="u-bold" target="_blank" href="https://www.mongodb.com/docs/atlas/getting-started/">Learn more</a>.`,
+                value: '',
+                placeholder:
+                    'mongodb+srv://appwrite:Yx42hafg7Q4fgkxe@cluster0.7mslfog.mongodb.net/?retryWrites=true&w=majority&appName=Appwrite',
+                required: true,
+                type: 'password'
+            }
+        ]
+    },
+    {
+        icon: 'icon-neon',
+        id: 'query-neon-postgres',
+        name: 'Query Neon Postgres',
+        tagline:
+            'Reliable SQL database with replication, point-in-time recovery, and pgvector support.',
+        permissions: ['any'],
+        events: [],
+        cron: '',
+        timeout: 15,
+        usecases: ['Databases'],
+        runtimes: [
+            ...getRuntimes(
+                TemplateRuntimes.NODE,
+                'npm install',
+                'src/main.js',
+                'node/query-neon-postgres'
+            )
+        ],
+        instructions: `For documentation and instructions check out <a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/appwrite/templates/tree/main/node/query-neon-postgres">file</a>.`,
+        vcsProvider: 'github',
+        providerRepositoryId: 'templates',
+        providerOwner: 'appwrite',
+        providerBranch: '0.1.*',
+        variables: [
+            {
+                name: 'PGHOST',
+                description: `The endpoint to connect to your Postgres database. <a class="u-bold" target="_blank" href="https://neon.tech/docs/get-started-with-neon/signing-up/">Learn more</a>.`,
+                value: '',
+                placeholder: 'ep-still-sea-a792sh84.eu-central-1.aws.neon.tech',
+                required: true,
+                type: 'text'
+            },
+            {
+                name: 'PGDATABASE',
+                description: `Name of our Postgres database. <a class="u-bold" target="_blank" href="https://neon.tech/docs/get-started-with-neon/signing-up/">Learn more</a>.`,
+                value: '',
+                placeholder: 'main',
+                required: true,
+                type: 'text'
+            },
+            {
+                name: 'PGUSER',
+                description: `Name of our Postgres user for authentication. <a class="u-bold" target="_blank" href="https://neon.tech/docs/get-started-with-neon/signing-up/">Learn more</a>.`,
+                value: '',
+                placeholder: 'main_owner',
+                required: true,
+                type: 'text'
+            },
+            {
+                name: 'PGPASSWORD',
+                description: `Password of our Postgres user for authentication. <a class="u-bold" target="_blank" href="https://neon.tech/docs/get-started-with-neon/signing-up/">Learn more</a>.`,
+                value: '',
+                placeholder: 'iQCfaUaaWB3B',
+                required: true,
+                type: 'password'
+            },
+            {
+                name: 'ENDPOINT_ID',
+                description: `Endpoint ID provided for your Postgres database. <a class="u-bold" target="_blank" href="https://neon.tech/docs/get-started-with-neon/signing-up/">Learn more</a>.`,
+                value: '',
+                placeholder: 'ep-still-sea-a792sh84',
+                required: true,
+                type: 'text'
             }
         ]
     },
@@ -117,7 +355,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'OPENAI_API_KEY',
@@ -165,7 +403,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'DISCORD_PUBLIC_KEY',
@@ -215,7 +453,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'PERSPECTIVE_API_KEY',
@@ -262,7 +500,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'PANGEA_REDACT_TOKEN',
@@ -291,7 +529,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: []
     },
     {
@@ -317,7 +555,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'GITHUB_TOKEN',
@@ -359,7 +597,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -437,7 +675,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -545,7 +783,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -659,7 +897,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'VONAGE_API_KEY',
@@ -714,7 +952,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'FCM_PROJECT_ID',
@@ -781,7 +1019,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'SMTP_HOST',
@@ -851,7 +1089,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -907,7 +1145,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -979,7 +1217,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'HUGGINGFACE_ACCESS_TOKEN',
@@ -1012,7 +1250,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'HUGGINGFACE_ACCESS_TOKEN',
@@ -1045,7 +1283,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -1118,7 +1356,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -1191,7 +1429,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -1264,7 +1502,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -1337,7 +1575,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'REPLICATE_API_KEY',
@@ -1371,7 +1609,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'TOGETHER_API_KEY',
@@ -1428,7 +1666,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'PERPLEXITY_API_KEY',
@@ -1468,7 +1706,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'REPLICATE_API_KEY',
@@ -1502,7 +1740,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'OPENAI_API_KEY',
@@ -1580,7 +1818,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'OPENAI_API_KEY',
@@ -1658,7 +1896,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'ELEVENLABS_API_KEY',
@@ -1728,7 +1966,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'LMNT_API_KEY',
@@ -1784,7 +2022,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'ANYSCALE_API_KEY',
@@ -1824,7 +2062,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'APPWRITE_API_KEY',
@@ -1881,7 +2119,7 @@ export const marketplace: MarketplaceTemplate[] = [
         vcsProvider: 'github',
         providerRepositoryId: 'templates',
         providerOwner: 'appwrite',
-        providerBranch: 'main',
+        providerBranch: '0.1.*',
         variables: [
             {
                 name: 'FAL_API_KEY',
@@ -1890,6 +2128,162 @@ export const marketplace: MarketplaceTemplate[] = [
                 placeholder: 'd1efb...aec35',
                 required: true,
                 type: 'password'
+            }
+        ]
+    },
+    {
+        icon: 'icon-currency-dollar',
+        id: 'subscriptions-with-lemon-squeezy',
+        name: 'Subscriptions with Lemon Squeezy',
+        tagline: 'Receive recurring card payments and grant subscribers extra permissions.',
+        permissions: ['any'],
+        events: [],
+        cron: '',
+        timeout: 15,
+        usecases: ['Utilities'],
+        runtimes: [
+            ...getRuntimes(
+                TemplateRuntimes.NODE,
+                'npm install',
+                'src/main.js',
+                'node/subscriptions-with-lemon-squeezy'
+            )
+        ],
+        instructions: `For documentation and instructions check out <a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/appwrite/templates/tree/main/node/subscriptions-with-lemon-squeezy">file</a>.`,
+        vcsProvider: 'github',
+        providerRepositoryId: 'templates',
+        providerOwner: 'appwrite',
+        providerBranch: '0.1.*',
+        variables: [
+            {
+                name: 'APPWRITE_API_KEY',
+                description: `The API Key to authenticate against Appwrite's Server APIs. <a class="u-bold" target="_blank" href="https://appwrite.io/docs/advanced/platform/api-keys">Learn more</a>.`,
+                value: '',
+                placeholder: 'd1efb...aec35',
+                required: true,
+                type: 'password'
+            },
+            {
+                name: 'APPWRITE_ENDPOINT',
+                description: `The URL endpoint of the Appwrite server. <a class="u-bold" target="_blank" href="https://appwrite.io/docs/references#api">Learn more</a>.`,
+                value: 'https://cloud.appwrite.io/v1',
+                placeholder: 'https://cloud.appwrite.io/v1',
+                required: false,
+                type: 'url'
+            },
+            {
+                name: 'LEMON_SQUEEZY_API_KEY',
+                description: `API key for sending requests to the Lemon Squeezy API. <a class="u-bold" target="_blank" href="https://docs.lemonsqueezy.com/api#authentication">Learn more</a>.`,
+                placeholder: 'eyJ0eXAiOiJ...',
+                required: true,
+                type: 'password'
+            },
+            {
+                name: 'LEMON_SQUEEZY_WEBHOOK_SECRET',
+                description: `Secret used to validate the Lemon Squuezy Webhook signature. <a class="u-bold" target="_blank" href="https://docs.lemonsqueezy.com/guides/developer-guide/webhooks#from-the-dashboard">Learn more</a>.`,
+                placeholder: 'abcd...',
+                required: true,
+                type: 'password'
+            },
+            {
+                name: 'LEMON_SQUEEZY_STORE_ID',
+                description: `Store ID required to create a checkout using the Lemon Squeezy API. <a class="u-bold" target="_blank" href="https://docs.lemonsqueezy.com/guides/developer-guide/taking-payments#creating-checkouts-with-the-api">Learn more</a>.`,
+                placeholder: '123456',
+                required: true,
+                type: 'text'
+            },
+            {
+                name: 'LEMON_SQUEEZY_VARIANT_ID',
+                description: `Variant ID of a product required to create a checkout using the Lemon Squeezy API. <a class="u-bold" target="_blank" href="https://docs.lemonsqueezy.com/guides/developer-guide/taking-payments#creating-checkouts-with-the-api">Learn more</a>.`,
+                placeholder: 'abcd...',
+                required: true,
+                type: 'text'
+            }
+        ]
+    },
+    {
+        icon: 'icon-currency-dollar',
+        id: 'payments-with-lemon-squeezy',
+        name: 'Payments with Lemon Squeezy',
+        tagline: 'Receive card payments and store paid orders.',
+        permissions: ['any'],
+        events: [],
+        cron: '',
+        timeout: 15,
+        usecases: ['Utilities'],
+        runtimes: [
+            ...getRuntimes(
+                TemplateRuntimes.NODE,
+                'npm install',
+                'src/main.js',
+                'node/payments-with-lemon-squeezy'
+            )
+        ],
+        instructions: `For documentation and instructions check out <a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/appwrite/templates/tree/main/node/payments-with-lemon-squeezy">file</a>.`,
+        vcsProvider: 'github',
+        providerRepositoryId: 'templates',
+        providerOwner: 'appwrite',
+        providerBranch: '0.1.*',
+        variables: [
+            {
+                name: 'APPWRITE_API_KEY',
+                description: `The API Key to authenticate against Appwrite's Server APIs. <a class="u-bold" target="_blank" href="https://appwrite.io/docs/advanced/platform/api-keys">Learn more</a>.`,
+                value: '',
+                placeholder: 'd1efb...aec35',
+                required: true,
+                type: 'password'
+            },
+            {
+                name: 'APPWRITE_ENDPOINT',
+                description: `The URL endpoint of the Appwrite server. <a class="u-bold" target="_blank" href="https://appwrite.io/docs/references#api">Learn more</a>.`,
+                value: 'https://cloud.appwrite.io/v1',
+                placeholder: 'https://cloud.appwrite.io/v1',
+                required: false,
+                type: 'url'
+            },
+            {
+                name: 'APPWRITE_DATABASE_ID',
+                description: `The ID of the database to store paid orders. <a class="u-bold" target="_blank" href="https://appwrite.io/docs/products/databases/databases">Learn more</a>.`,
+                value: 'orders',
+                placeholder: 'orders',
+                required: false,
+                type: 'text'
+            },
+            {
+                name: 'APPWRITE_COLLECTION_ID',
+                description: `The ID of the collection to store paid orders. <a class="u-bold" target="_blank" href="https://appwrite.io/docs/products/databases/collections">Learn more</a>.`,
+                value: 'orders',
+                placeholder: 'orders',
+                required: false,
+                type: 'text'
+            },
+            {
+                name: 'LEMON_SQUEEZY_API_KEY',
+                description: `API key for sending requests to the Lemon Squeezy API. <a class="u-bold" target="_blank" href="https://docs.lemonsqueezy.com/api#authentication">Learn more</a>.`,
+                placeholder: 'eyJ0eXAiOiJ...',
+                required: true,
+                type: 'password'
+            },
+            {
+                name: 'LEMON_SQUEEZY_WEBHOOK_SECRET',
+                description: `Secret used to validate the Lemon Squuezy Webhook signature. <a class="u-bold" target="_blank" href="https://docs.lemonsqueezy.com/guides/developer-guide/webhooks#from-the-dashboard">Learn more</a>.`,
+                placeholder: 'abcd...',
+                required: true,
+                type: 'password'
+            },
+            {
+                name: 'LEMON_SQUEEZY_STORE_ID',
+                description: `Store ID required to create a checkout using the Lemon Squeezy API. <a class="u-bold" target="_blank" href="https://docs.lemonsqueezy.com/guides/developer-guide/taking-payments#creating-checkouts-with-the-api">Learn more</a>.`,
+                placeholder: '123456',
+                required: true,
+                type: 'text'
+            },
+            {
+                name: 'LEMON_SQUEEZY_VARIANT_ID',
+                description: `Variant ID of a product required to create a checkout using the Lemon Squeezy API. <a class="u-bold" target="_blank" href="https://docs.lemonsqueezy.com/guides/developer-guide/taking-payments#creating-checkouts-with-the-api">Learn more</a>.`,
+                placeholder: 'abcd...',
+                required: true,
+                type: 'text'
             }
         ]
     }

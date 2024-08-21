@@ -62,10 +62,10 @@
                     {abbreviateNumber(limit)} function executions
                 </li>
                 <li>
-                    ${hoursToDays(logs)} of logs
+                    {hoursToDays(logs)} of logs
                 </li>
             </ul>
-            {#if $organization?.billingPlan === BillingPlan.STARTER}
+            {#if $organization?.billingPlan === BillingPlan.FREE}
                 <p class="text">
                     <button class="link" type="button" on:click|preventDefault={upgradeMethod}
                         >Upgrade</button>

@@ -7,9 +7,9 @@
     import { isCloud } from '$lib/system';
     import { organization } from '$lib/stores/organization';
     import { BillingPlan } from '$lib/constants';
-    import ChangeOrganizationTierCloud from '$routes/console/changeOrganizationTierCloud.svelte';
     import { trackEvent } from '$lib/actions/analytics';
     import { localeTimezoneName, utcHourToLocaleHour } from '$lib/helpers/date';
+    import { upgradeURL } from '$lib/stores/billing';
 
     export let show = false;
 
@@ -17,7 +17,7 @@
         $organization?.billingPlan === BillingPlan.PRO ||
         $organization?.billingPlan === BillingPlan.SCALE;
 
-    $: supportTimings = `${utcHourToLocaleHour('09:00')} - ${utcHourToLocaleHour('17:00')} ${localeTimezoneName()}`;
+    $: supportTimings = `${utcHourToLocaleHour('16:00')} - ${utcHourToLocaleHour('00:00')} ${localeTimezoneName()}`;
 </script>
 
 {#if isCloud}
@@ -30,12 +30,11 @@
                 </p>
             {/if}
         </div>
-        {#if $organization?.billingPlan === BillingPlan.STARTER}
+        {#if $organization?.billingPlan === BillingPlan.FREE}
             <Button
                 fullWidth
-                external
+                href={$upgradeURL}
                 on:click={() => {
-                    wizard.start(ChangeOrganizationTierCloud);
                     trackEvent('click_organization_upgrade', {
                         from: 'button',
                         source: 'support_menu'
@@ -64,6 +63,7 @@
         <div class="u-margin-block-start-8 u-width-full-line">
             {#key $app.themeInUse}
                 <iframe
+                    style="color-scheme: none"
                     title="Appwrite Status"
                     src={`https://status.appwrite.online/badge?theme=${
                         $app.themeInUse === 'dark' ? 'dark' : 'light'

@@ -31,17 +31,23 @@ export type Invoice = {
     $id: string;
     $createdAt: Date;
     $updatedAt: Date;
+    permissions: string[];
     teamId: string;
     aggregationId: string;
+    plan: Tier;
     amount: number;
+    tax: number;
+    taxAmount: number;
+    vat: number;
+    vatAmount: number;
+    grossAmount: number;
+    creditsUsed: number;
     currency: string;
-    date: number;
     from: string;
     to: string;
     status: string;
     dueAt: string;
     clientSecret: string;
-    tier: Tier;
     usage: {
         name: string;
         value: number /* service over the limit*/;
@@ -64,6 +70,7 @@ export type Coupon = {
     expiration: string;
     status: string; // 'active' | 'disabled' | 'expired'
     validity: number;
+    campaign?: string;
 };
 
 export type Credit = {
@@ -110,6 +117,7 @@ export type Credit = {
 };
 
 export type CreditList = {
+    available: number;
     credits: Credit[];
     total: number;
 };
@@ -299,7 +307,7 @@ export class Billing {
         name: string,
         billingPlan: string,
         paymentMethodId: string,
-        billingAddressId: string
+        billingAddressId: string = undefined
     ): Promise<Organization> {
         const path = `/organizations`;
         const params = {
@@ -356,7 +364,7 @@ export class Billing {
         organizationId: string,
         billingPlan: string,
         paymentMethodId: string,
-        billingAddressId: string
+        billingAddressId: string = undefined
     ): Promise<Organization> {
         const path = `/organizations/${organizationId}/plan`;
         const params = {

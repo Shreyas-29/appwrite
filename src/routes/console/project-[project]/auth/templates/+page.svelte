@@ -32,7 +32,6 @@
 </script>
 
 <script lang="ts">
-    import { goto } from '$app/navigation';
     import { base } from '$app/paths';
     import { page } from '$app/stores';
     import { Alert, CardGrid, Collapsible, CollapsibleItem, Heading } from '$lib/components';
@@ -51,9 +50,9 @@
     import { baseEmailTemplate, emailTemplate } from './store';
     import { Button } from '$lib/elements/forms';
     import { organization } from '$lib/stores/organization';
-    import ChangeOrganizationTierCloud from '$routes/console/changeOrganizationTierCloud.svelte';
-    import { wizard } from '$lib/stores/wizard';
     import { BillingPlan } from '$lib/constants';
+    import EmailSignature from './emailSignature.svelte';
+    import { isCloud } from '$lib/system';
     import type {
         SmsTemplateLocale,
         SmsTemplateType,
@@ -110,10 +109,8 @@
                 type="info"
                 buttons={[
                     {
-                        name: 'SMTP settings',
-                        method: () => {
-                            goto(`${base}/console/project-${$project.$id}/settings/smtp`);
-                        }
+                        slot: 'SMTP settings',
+                        href: `${base}/console/project-${$project.$id}/settings/smtp`
                     }
                 ]}>
                 <svelte:fragment slot="title">
@@ -136,18 +133,6 @@
         </p>
 
         <svelte:fragment slot="aside">
-            {#if $organization.billingPlan === BillingPlan.STARTER}
-                <Alert
-                    buttons={[
-                        {
-                            name: 'Upgrade plan',
-                            method: () => wizard.start(ChangeOrganizationTierCloud)
-                        }
-                    ]}>
-                    All emails sent using the Starter plan will include attribution to Appwrite in
-                    the signature. To send attribution-free emails, upgrade your plan.
-                </Alert>
-            {/if}
             <Collapsible>
                 <CollapsibleItem
                     bind:open={emailVerificationOpen}
@@ -261,4 +246,7 @@
             </Collapsible>
         </svelte:fragment>
     </CardGrid>-->
+    {#if isCloud && $organization?.billingPlan === BillingPlan.FREE}
+        <EmailSignature />
+    {/if}
 </Container>

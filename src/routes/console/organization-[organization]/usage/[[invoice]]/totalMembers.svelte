@@ -30,7 +30,7 @@
 
     <p class="text">The number of members in your organization.</p>
     <svelte:fragment slot="aside">
-        {#if $organization.billingPlan !== BillingPlan.STARTER}
+        {#if $organization.billingPlan !== BillingPlan.FREE}
             <div class="u-flex u-flex-vertical">
                 <div class="u-flex u-main-space-between">
                     <p>
@@ -46,7 +46,7 @@
                     <span
                         class="icon-info"
                         use:tooltip={{
-                            content: `You can add unlimited organization members on the ${tierToPlan($organization.billingPlan).name} plan for ${formatCurrency(plan.addons.member.price)} each per billing period.`
+                            content: `You can add unlimited organization members on the ${tierToPlan($organization.billingPlan).name} plan ${$organization.billingPlan === BillingPlan.PRO ? `for ${formatCurrency(plan.addons.member.price)} each per billing period.` : '.'}`
                         }}></span>
                 </p>
             </div>

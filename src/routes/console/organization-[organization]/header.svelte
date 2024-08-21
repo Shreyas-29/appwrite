@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from '$app/navigation';
     import { base } from '$app/paths';
     import { page } from '$app/stores';
     import { tooltip } from '$lib/actions/tooltip';
@@ -31,9 +32,7 @@
         organization,
         organizationList
     } from '$lib/stores/organization';
-    import { wizard } from '$lib/stores/wizard';
     import { GRACE_PERIOD_OVERRIDE, isCloud } from '$lib/system';
-    import CreateOrganizationCloud from '../createOrganizationCloud.svelte';
 
     let areMembersLimited: boolean;
     $: organization.subscribe(() => {
@@ -48,7 +47,7 @@
     function createOrg() {
         showDropdown = false;
         if (isCloud) {
-            wizard.start(CreateOrganizationCloud);
+            goto(`${base}/console/create-organization`);
         } else newOrgModal.set(true);
     }
 
@@ -108,10 +107,10 @@
                             <span class="u-trim">
                                 {$organization.name}
                             </span>
-                            {#if isCloud && $organization?.billingPlan === BillingPlan.STARTER}
+                            {#if isCloud && $organization?.billingPlan === BillingPlan.FREE}
                                 <Pill>FREE</Pill>
                             {/if}
-                            {#if isCloud && $organization?.billingTrialStartDate && $daysLeftInTrial > 0 && $organization.billingPlan !== BillingPlan.STARTER && $plansInfo.get($organization.billingPlan)?.trialDays}
+                            {#if isCloud && $organization?.billingTrialStartDate && $daysLeftInTrial > 0 && $organization.billingPlan !== BillingPlan.FREE && $plansInfo.get($organization.billingPlan)?.trialDays}
                                 <div
                                     class="u-flex u-cross-center"
                                     use:tooltip={{
@@ -128,7 +127,7 @@
                             aria-hidden="true" />
                     </Heading>
                 </button>
-                <svelte:fragment slot="list">
+                <div data-sveltekit-preload-data="false" slot="list">
                     {#each $organizationList.teams as org}
                         <DropListLink
                             href={`${base}/console/organization-${org.$id}`}
@@ -136,7 +135,7 @@
                             {org.name}
                         </DropListLink>
                     {/each}
-                </svelte:fragment>
+                </div>
                 <svelte:fragment slot="other">
                     <section class="drop-section">
                         <ul class="drop-list">
@@ -154,7 +153,7 @@
                     <div
                         use:tooltip={{
                             content:
-                                $organization?.billingPlan === BillingPlan.STARTER
+                                $organization?.billingPlan === BillingPlan.FREE
                                     ? `Upgrade to add more members`
                                     : `You've reached the members limit for the ${
                                           tierToPlan($organization?.billingPlan)?.name

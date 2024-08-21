@@ -1,13 +1,16 @@
 <script lang="ts">
     import { Container } from '$lib/layout';
     import { Card, CardGrid, Heading, ProgressBarBig } from '$lib/components';
-    import { getServiceLimit, showUsageRatesModal, tierToPlan } from '$lib/stores/billing';
-    import { wizard } from '$lib/stores/wizard';
+    import {
+        getServiceLimit,
+        showUsageRatesModal,
+        tierToPlan,
+        upgradeURL
+    } from '$lib/stores/billing';
     import { organization } from '$lib/stores/organization';
     import { Button } from '$lib/elements/forms';
     import { bytesToSize, humanFileSize } from '$lib/helpers/sizeConvertion';
     import { BarChart } from '$lib/charts';
-    import ChangeOrganizationTierCloud from '$routes/console/changeOrganizationTierCloud.svelte';
     import ProjectBreakdown from './ProjectBreakdown.svelte';
     import { formatNum } from '$lib/helpers/string';
     import { accumulateFromEndingTotal, total } from '$lib/layout/usage.svelte';
@@ -18,7 +21,7 @@
 
     export let data;
 
-    const tier = data?.currentInvoice?.tier ?? $organization?.billingPlan;
+    const tier = data?.currentInvoice?.plan ?? $organization?.billingPlan;
     const plan = tierToPlan(tier).name;
 
     // let invoice = null;
@@ -43,10 +46,10 @@
     <div class="u-flex u-cross-center u-main-space-between">
         <Heading tag="h2" size="5">Usage</Heading>
 
-        {#if $organization?.billingPlan === BillingPlan.STARTER}
+        {#if $organization?.billingPlan === BillingPlan.FREE}
             <Button
+                href={$upgradeURL}
                 on:click={() => {
-                    wizard.start(ChangeOrganizationTierCloud);
                     trackEvent('click_organization_upgrade', {
                         from: 'button',
                         source: 'organization_usage'
@@ -73,15 +76,11 @@
                     class="link"
                     type="button">Learn more about plan usage limits.</button>
             </p>
-        {:else if $organization.billingPlan === BillingPlan.STARTER}
+        {:else if $organization.billingPlan === BillingPlan.FREE}
             <p class="text">
                 If you exceed the limits of the {plan} plan, services for your organization's projects
                 may be disrupted.
-                <button
-                    on:click={() => wizard.start(ChangeOrganizationTierCloud)}
-                    class="link"
-                    type="button">Upgrade for greater capacity</button
-                >.
+                <a href={$upgradeURL} class="link">Upgrade for greater capacity</a>.
             </p>
         {/if}
 

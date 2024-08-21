@@ -10,15 +10,15 @@
         readOnly,
         showUsageRatesModal,
         tierToPlan,
+        upgradeURL,
         type PlanServices
     } from '$lib/stores/billing';
     import { organization } from '$lib/stores/organization';
-    import { wizard } from '$lib/stores/wizard';
     import { GRACE_PERIOD_OVERRIDE, isCloud } from '$lib/system';
-    import ChangeOrganizationTierCloud from '$routes/console/changeOrganizationTierCloud.svelte';
     import { createEventDispatcher, onMount } from 'svelte';
     import { ContainerButton } from '.';
     import { trackEvent } from '$lib/actions/analytics';
+    import { goto } from '$app/navigation';
 
     export let isFlex = true;
     export let title: string;
@@ -53,15 +53,17 @@
     ];
 
     const limit = getServiceLimit(serviceId) || Infinity;
+
+    //TODO: refactor this to be a string
     const upgradeMethod = () => {
         showDropdown = false;
-        wizard.start(ChangeOrganizationTierCloud);
+        goto($upgradeURL);
     };
     const dispatch = createEventDispatcher();
 
     $: tier = tierToPlan($organization?.billingPlan)?.name;
     $: hasProjectLimitation =
-        checkForProjectLimitation(serviceId) && $organization?.billingPlan === BillingPlan.STARTER;
+        checkForProjectLimitation(serviceId) && $organization?.billingPlan === BillingPlan.FREE;
     $: hasUsageFees = hasProjectLimitation
         ? checkForUsageFees($organization?.billingPlan, serviceId)
         : false;
@@ -86,7 +88,7 @@
             })
             .join(', ')}
         <slot name="alert" {limit} {tier} {title} {upgradeMethod} {hasUsageFees} {services}>
-            {#if $organization?.billingPlan !== BillingPlan.STARTER && hasUsageFees}
+            {#if $organization?.billingPlan !== BillingPlan.FREE && hasUsageFees}
                 <Alert type="info" isStandalone>
                     <span class="text">
                         You've reached the {services} limit for the {tier} plan.
@@ -100,7 +102,7 @@
                     <span class="text">
                         You've reached the {services} limit for the {tier} plan. <Button
                             link
-                            on:click={upgradeMethod}
+                            href={$upgradeURL}
                             on:click={() =>
                                 trackEvent('click_organization_upgrade', {
                                     from: 'button',
@@ -133,9 +135,9 @@
                             <p class="text">
                                 You are limited to {limit}
                                 {title.toLocaleLowerCase()} per project on the {tier} plan.
-                                {#if $organization?.billingPlan === BillingPlan.STARTER}<Button
+                                {#if $organization?.billingPlan === BillingPlan.FREE}<Button
                                         link
-                                        on:click={upgradeMethod}
+                                        href={$upgradeURL}
                                         on:click={() =>
                                             trackEvent('click_organization_upgrade', {
                                                 from: 'button',
@@ -156,8 +158,8 @@
                             <p class="text">
                                 You are limited to {limit}
                                 {title.toLocaleLowerCase()} per organization on the {tier} plan.
-                                {#if $organization?.billingPlan === BillingPlan.STARTER}
-                                    <Button link on:click={upgradeMethod}>Upgrade</Button>
+                                {#if $organization?.billingPlan === BillingPlan.FREE}
+                                    <Button link href={$upgradeURL}>Upgrade</Button>
                                     for additional {title.toLocaleLowerCase()}.
                                 {/if}
                             </p>

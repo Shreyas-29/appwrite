@@ -6,12 +6,14 @@
     import { BillingPlan } from '$lib/constants';
     import { isMac } from '$lib/helpers/platform';
     import { slide } from '$lib/helpers/transition';
+    import { upgradeURL } from '$lib/stores/billing';
     import { organization } from '$lib/stores/organization';
     import { wizard } from '$lib/stores/wizard';
     import { isCloud } from '$lib/system';
-    import ChangeOrganizationTierCloud from '$routes/console/changeOrganizationTierCloud.svelte';
     import Create from '$routes/console/feedbackWizard.svelte';
     import { showSupportModal } from '$routes/console/wizard/support/store';
+    import { getContext } from 'svelte';
+    import type { Writable } from 'svelte/store';
 
     export let isOpen = false;
 
@@ -28,6 +30,9 @@
     $: {
         narrow = hasSubNavigation;
     }
+
+    $: getContext<Writable<boolean>>('isNarrow').set(narrow);
+    $: getContext<Writable<boolean>>('hasSubNavigation').set(hasSubNavigation);
 
     function handleKeyDown(event: KeyboardEvent) {
         // If Alt + S is pressed
@@ -158,7 +163,7 @@
                                 <span class="text">Storage</span>
                             </a>
                         </li>
-                        <li class="drop-list-item is-only-mobile">
+                        <li class="drop-list-item is-not-desktop">
                             <a
                                 class="drop-button"
                                 href={`${projectPath}/settings`}
@@ -197,14 +202,12 @@
                         <span class="text">Settings</span>
                     </a>
 
-                    <ul class="drop-list is-only-mobile">
+                    <ul class="drop-list is-not-desktop">
                         {#if isCloud && $organization?.billingPlan !== BillingPlan.SCALE}
                             <li class="drop-list-item">
-                                <button
-                                    class="drop-button"
-                                    on:click={() => wizard.start(ChangeOrganizationTierCloud)}>
+                                <a class="drop-button" href={$upgradeURL}>
                                     <span class="text">Upgrade</span>
-                                </button>
+                                </a>
                             </li>
                         {/if}
                         <li class="drop-list-item">
